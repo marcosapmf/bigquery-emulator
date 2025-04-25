@@ -3311,6 +3311,9 @@ paths:
           application/octet-stream:
             schema:
               $ref: '#/components/schemas/Job'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Job'
       responses:
         "200":
           content:

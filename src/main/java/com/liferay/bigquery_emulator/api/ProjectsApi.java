@@ -700,7 +700,7 @@ public interface ProjectsApi {
         method = RequestMethod.POST,
         value = "/projects/{projectId}/jobs",
         produces = { "application/json" },
-        consumes = { "application/octet-stream" }
+        consumes = { "application/octet-stream",  "application/json"}
     )
     
     default ResponseEntity<Job> bigqueryJobsInsert(
