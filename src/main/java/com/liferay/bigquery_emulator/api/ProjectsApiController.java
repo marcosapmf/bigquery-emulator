@@ -1,65 +1,51 @@
 package com.liferay.bigquery_emulator.api;
 
-import com.liferay.bigquery_emulator.model.Dataset;
-import com.liferay.bigquery_emulator.model.DatasetList;
-import com.liferay.bigquery_emulator.model.GetQueryResultsResponse;
-import com.liferay.bigquery_emulator.model.GetServiceAccountResponse;
-import com.liferay.bigquery_emulator.model.Job;
-import com.liferay.bigquery_emulator.model.JobCancelResponse;
-import com.liferay.bigquery_emulator.model.JobList;
-import com.liferay.bigquery_emulator.model.ListModelsResponse;
-import com.liferay.bigquery_emulator.model.ListRoutinesResponse;
-import com.liferay.bigquery_emulator.model.ListRowAccessPoliciesResponse;
-import com.liferay.bigquery_emulator.model.Model;
-import com.liferay.bigquery_emulator.model.ProjectList;
-import com.liferay.bigquery_emulator.model.QueryRequest;
-import com.liferay.bigquery_emulator.model.QueryResponse;
-import com.liferay.bigquery_emulator.model.Routine;
-import com.liferay.bigquery_emulator.model.Table;
-import com.liferay.bigquery_emulator.model.TableDataInsertAllRequest;
-import com.liferay.bigquery_emulator.model.TableDataInsertAllResponse;
-import com.liferay.bigquery_emulator.model.TableDataList;
-import com.liferay.bigquery_emulator.model.TableList;
-
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.CookieValue;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestPart;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.context.request.NativeWebRequest;
 
-import jakarta.validation.constraints.*;
-import jakarta.validation.Valid;
+import com.liferay.bigquery_emulator.exception.DatasetNotFoundException;
+import com.liferay.bigquery_emulator.model.Dataset;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
 import jakarta.annotation.Generated;
+import jakarta.validation.Valid;
 
 @Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-04-25T13:50:41.257366434-03:00[America/Recife]", comments = "Generator version: 7.9.0")
 @Controller
 @RequestMapping("${openapi.bigQuery.base-path:/bigquery/v2}")
 public class ProjectsApiController implements ProjectsApi {
 
-    private final NativeWebRequest request;
-
-    @Autowired
-    public ProjectsApiController(NativeWebRequest request) {
-        this.request = request;
+    @Override
+    public ResponseEntity<Dataset> bigqueryDatasetsInsert(
+    		String projectId,
+    		@Valid String alt, @Valid String fields,
+    		@Valid String key, @Valid String oauthToken,
+    		@Valid Boolean prettyPrint, @Valid String quotaUser,
+    		@Valid String userIp, @Valid Dataset dataset) {
+    	// TODO Auto-generated method stub
+    	return ProjectsApi.super.bigqueryDatasetsInsert(projectId, alt, fields, key, oauthToken, prettyPrint, quotaUser, userIp,
+    			dataset);
     }
-
+    
+    @Override
+    public ResponseEntity<Dataset> bigqueryDatasetsGet(String projectId, String datasetId, @Valid String alt,
+    		@Valid String fields, @Valid String key, 
+    		@Valid String oauthToken, @Valid Boolean prettyPrint,
+    		@Valid String quotaUser, @Valid String userIp) throws Exception {
+    	// TODO Auto-generated method stub
+    	
+    	throw new DatasetNotFoundException("Not found: Dataset " + datasetId);
+    }
+    
     @Override
     public Optional<NativeWebRequest> getRequest() {
-        return Optional.ofNullable(request);
+        return Optional.ofNullable(_request);
     }
 
+    @Autowired
+    private NativeWebRequest _request;
 }

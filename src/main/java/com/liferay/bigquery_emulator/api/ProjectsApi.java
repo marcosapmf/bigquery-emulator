@@ -124,6 +124,7 @@ public interface ProjectsApi {
      * @param quotaUser An opaque string that represents a user for quota purposes. Must not exceed 40 characters. (optional)
      * @param userIp Deprecated. Please use quotaUser instead. (optional)
      * @return Successful response (status code 200)
+     * @throws Exception 
      */
     @Operation(
         operationId = "bigqueryDatasetsGet",
@@ -155,7 +156,7 @@ public interface ProjectsApi {
         @Parameter(name = "prettyPrint", description = "Returns response with indentations and line breaks.", in = ParameterIn.QUERY) @Valid @RequestParam(value = "prettyPrint", required = false) Boolean prettyPrint,
         @Parameter(name = "quotaUser", description = "An opaque string that represents a user for quota purposes. Must not exceed 40 characters.", in = ParameterIn.QUERY) @Valid @RequestParam(value = "quotaUser", required = false) String quotaUser,
         @Parameter(name = "userIp", description = "Deprecated. Please use quotaUser instead.", in = ParameterIn.QUERY) @Valid @RequestParam(value = "userIp", required = false) String userIp
-    ) {
+    ) throws Exception {
         getRequest().ifPresent(request -> {
             for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
@@ -700,7 +701,7 @@ public interface ProjectsApi {
         method = RequestMethod.POST,
         value = "/projects/{projectId}/jobs",
         produces = { "application/json" },
-        consumes = { "application/octet-stream",  "application/json"}
+        consumes = { "application/json", "application/octet-stream"}
     )
     
     default ResponseEntity<Job> bigqueryJobsInsert(
