@@ -4,6 +4,7 @@ import java.net.URI;
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.liferay.bigquery_emulator.model.ErrorProto;
 import com.liferay.bigquery_emulator.model.JobConfiguration;
@@ -78,6 +79,7 @@ public class JobListJobsInner {
   @Valid 
   @Schema(name = "errorResult", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("errorResult")
+  @JsonInclude(JsonInclude.Include.NON_NULL)
   public ErrorProto getErrorResult() {
     return errorResult;
   }

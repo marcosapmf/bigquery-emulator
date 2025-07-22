@@ -4,6 +4,7 @@ import java.net.URI;
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.liferay.bigquery_emulator.model.BiEngineStatistics;
 import com.liferay.bigquery_emulator.model.BigQueryModelTraining;
 import com.liferay.bigquery_emulator.model.DatasetReference;
@@ -183,6 +184,7 @@ public class JobStatistics2 {
   
   @Schema(name = "ddlAffectedRowAccessPolicyCount", description = "[Output only] [Preview] The number of row access policies affected by a DDL statement. Present only for DROP ALL ROW ACCESS POLICIES queries.", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("ddlAffectedRowAccessPolicyCount")
+  @JsonInclude(JsonInclude.Include.NON_NULL)
   public String getDdlAffectedRowAccessPolicyCount() {
     return ddlAffectedRowAccessPolicyCount;
   }
@@ -223,6 +225,7 @@ public class JobStatistics2 {
   
   @Schema(name = "ddlOperationPerformed", description = "The DDL operation performed, possibly dependent on the pre-existence of the DDL target. Possible values (new values might be added in the future): \"CREATE\": The query created the DDL target. \"SKIP\": No-op. Example cases: the query is CREATE TABLE IF NOT EXISTS while the table already exists, or the query is DROP TABLE IF EXISTS while the table does not exist. \"REPLACE\": The query replaced the DDL target. Example case: the query is CREATE OR REPLACE TABLE, and the table already exists. \"DROP\": The query deleted the DDL target.", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("ddlOperationPerformed")
+  @JsonInclude(JsonInclude.Include.NON_NULL)
   public String getDdlOperationPerformed() {
     return ddlOperationPerformed;
   }
@@ -263,6 +266,7 @@ public class JobStatistics2 {
   @Valid 
   @Schema(name = "ddlTargetRoutine", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("ddlTargetRoutine")
+  @JsonInclude(JsonInclude.Include.NON_NULL)
   public RoutineReference getDdlTargetRoutine() {
     return ddlTargetRoutine;
   }
@@ -283,6 +287,7 @@ public class JobStatistics2 {
   @Valid 
   @Schema(name = "ddlTargetRowAccessPolicy", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("ddlTargetRowAccessPolicy")
+  @JsonInclude(JsonInclude.Include.NON_NULL)
   public RowAccessPolicyReference getDdlTargetRowAccessPolicy() {
     return ddlTargetRowAccessPolicy;
   }
@@ -303,6 +308,7 @@ public class JobStatistics2 {
   @Valid 
   @Schema(name = "ddlTargetTable", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("ddlTargetTable")
+  @JsonInclude(JsonInclude.Include.NON_NULL)
   public TableReference getDdlTargetTable() {
     return ddlTargetTable;
   }
@@ -323,6 +329,7 @@ public class JobStatistics2 {
   @Valid 
   @Schema(name = "dmlStats", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("dmlStats")
+  @JsonInclude(JsonInclude.Include.NON_NULL)
   public DmlStatistics getDmlStats() {
     return dmlStats;
   }
@@ -343,6 +350,7 @@ public class JobStatistics2 {
   
   @Schema(name = "estimatedBytesProcessed", description = "[Output only] The original estimate of bytes processed for the job.", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("estimatedBytesProcessed")
+  @JsonInclude(JsonInclude.Include.NON_NULL)
   public String getEstimatedBytesProcessed() {
     return estimatedBytesProcessed;
   }
@@ -403,6 +411,7 @@ public class JobStatistics2 {
   
   @Schema(name = "modelTrainingCurrentIteration", description = "[Output only, Beta] Deprecated; do not use.", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("modelTrainingCurrentIteration")
+  @JsonInclude(JsonInclude.Include.NON_NULL)
   public Integer getModelTrainingCurrentIteration() {
     return modelTrainingCurrentIteration;
   }
@@ -423,6 +432,7 @@ public class JobStatistics2 {
   
   @Schema(name = "modelTrainingExpectedTotalIteration", description = "[Output only, Beta] Deprecated; do not use.", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("modelTrainingExpectedTotalIteration")
+  @JsonInclude(JsonInclude.Include.NON_NULL)
   public String getModelTrainingExpectedTotalIteration() {
     return modelTrainingExpectedTotalIteration;
   }
@@ -443,6 +453,7 @@ public class JobStatistics2 {
   
   @Schema(name = "numDmlAffectedRows", description = "[Output only] The number of rows affected by a DML statement. Present only for DML statements INSERT, UPDATE or DELETE.", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("numDmlAffectedRows")
+  @JsonInclude(JsonInclude.Include.NON_NULL)
   public String getNumDmlAffectedRows() {
     return numDmlAffectedRows;
   }
