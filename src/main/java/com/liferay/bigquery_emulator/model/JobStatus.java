@@ -4,6 +4,7 @@ import java.net.URI;
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.liferay.bigquery_emulator.model.ErrorProto;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -27,8 +28,7 @@ public class JobStatus {
 
   private ErrorProto errorResult;
 
-  @Valid
-  private List<@Valid ErrorProto> errors = new ArrayList<>();
+  private List<@Valid ErrorProto> errors;
 
   private String state;
 
@@ -44,6 +44,7 @@ public class JobStatus {
   @Valid 
   @Schema(name = "errorResult", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("errorResult")
+  @JsonInclude(JsonInclude.Include.NON_NULL)
   public ErrorProto getErrorResult() {
     return errorResult;
   }
@@ -72,6 +73,7 @@ public class JobStatus {
   @Valid 
   @Schema(name = "errors", description = "[Output-only] The first errors encountered during the running of the job. The final message includes the number of errors that caused the process to stop. Errors here do not necessarily mean that the job has completed or was unsuccessful.", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("errors")
+  @JsonInclude(JsonInclude.Include.NON_NULL)
   public List<@Valid ErrorProto> getErrors() {
     return errors;
   }

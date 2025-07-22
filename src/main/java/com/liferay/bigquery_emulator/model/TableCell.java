@@ -24,10 +24,10 @@ import jakarta.annotation.Generated;
 @Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-04-25T13:50:41.257366434-03:00[America/Recife]", comments = "Generator version: 7.9.0")
 public class TableCell {
 
-  private JsonNullable<Object> v = JsonNullable.<Object>undefined();
+  private Object v = null;
 
   public TableCell v(Object v) {
-    this.v = JsonNullable.of(v);
+    this.v = v;
     return this;
   }
 
@@ -38,11 +38,11 @@ public class TableCell {
   
   @Schema(name = "v", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("v")
-  public JsonNullable<Object> getV() {
+  public Object getV() {
     return v;
   }
 
-  public void setV(JsonNullable<Object> v) {
+  public void setV(Object v) {
     this.v = v;
   }
 
@@ -55,16 +55,12 @@ public class TableCell {
       return false;
     }
     TableCell tableCell = (TableCell) o;
-    return equalsNullable(this.v, tableCell.v);
-  }
-
-  private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
-    return a == b || (a != null && b != null && a.isPresent() && b.isPresent() && Objects.deepEquals(a.get(), b.get()));
+    return Objects.equals(this.v, tableCell.v);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(hashCodeNullable(v));
+    return Objects.hash(v);
   }
 
   private static <T> int hashCodeNullable(JsonNullable<T> a) {

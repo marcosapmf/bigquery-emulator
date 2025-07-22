@@ -1801,6 +1801,7 @@ public interface ProjectsApi {
      * @param selectedFields List of fields to return (comma-separated). If unspecified, all fields are returned (optional)
      * @param view Specifies the view that determines which table information is returned. By default, basic table information and storage statistics (STORAGE_STATS) are returned. (optional)
      * @return Successful response (status code 200)
+     * @throws Exception 
      */
     @Operation(
         operationId = "bigqueryTablesGet",
@@ -1835,7 +1836,7 @@ public interface ProjectsApi {
         @Parameter(name = "userIp", description = "Deprecated. Please use quotaUser instead.", in = ParameterIn.QUERY) @Valid @RequestParam(value = "userIp", required = false) String userIp,
         @Parameter(name = "selectedFields", description = "List of fields to return (comma-separated). If unspecified, all fields are returned", in = ParameterIn.QUERY) @Valid @RequestParam(value = "selectedFields", required = false) String selectedFields,
         @Parameter(name = "view", description = "Specifies the view that determines which table information is returned. By default, basic table information and storage statistics (STORAGE_STATS) are returned.", in = ParameterIn.QUERY) @Valid @RequestParam(value = "view", required = false) String view
-    ) {
+    ) throws Exception {
         getRequest().ifPresent(request -> {
             for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {

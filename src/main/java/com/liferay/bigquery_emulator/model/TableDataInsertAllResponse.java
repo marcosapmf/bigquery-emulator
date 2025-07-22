@@ -4,6 +4,7 @@ import java.net.URI;
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.liferay.bigquery_emulator.model.TableDataInsertAllResponseInsertErrorsInner;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -50,6 +51,7 @@ public class TableDataInsertAllResponse {
   @Valid 
   @Schema(name = "insertErrors", description = "An array of errors for rows that were not inserted.", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("insertErrors")
+  @JsonInclude(JsonInclude.Include.NON_NULL)
   public List<@Valid TableDataInsertAllResponseInsertErrorsInner> getInsertErrors() {
     return insertErrors;
   }

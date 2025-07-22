@@ -4,6 +4,7 @@ import java.net.URI;
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.liferay.bigquery_emulator.model.JobConfiguration;
 import com.liferay.bigquery_emulator.model.JobReference;
 import com.liferay.bigquery_emulator.model.JobStatistics;
@@ -115,6 +116,7 @@ public class Job {
   @Valid 
   @Schema(name = "jobReference", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("jobReference")
+  @JsonInclude(JsonInclude.Include.NON_NULL)
   public JobReference getJobReference() {
     return jobReference;
   }
