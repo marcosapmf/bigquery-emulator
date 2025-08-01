@@ -42,6 +42,7 @@ import com.liferay.bigquery.emulator.model.TableFieldSchema;
 import com.liferay.bigquery.emulator.model.TableReference;
 import com.liferay.bigquery.emulator.model.TableRow;
 import com.liferay.bigquery.emulator.model.TableSchema;
+import com.liferay.bigquery.emulator.model.ViewDefinition;
 import com.liferay.bigquery.emulator.parser.SQLRowSetParser;
 
 import jakarta.annotation.Generated;
@@ -84,14 +85,27 @@ public class ProjectsApiController implements ProjectsApi {
     public ResponseEntity<Table> bigqueryTablesInsert(String projectId, String datasetId, @Valid String alt,
     		@Valid String fields, @Valid String key, @Valid String oauthToken, @Valid Boolean prettyPrint,
     		@Valid String quotaUser, @Valid String userIp, @Valid Table table) {
-		TableReference tableReference = table.getTableReference();
+    	
+    	TableReference tableReference = table.getTableReference();
 		
-		TableSchema tableSchema = table.getSchema();
-		
-		_databaseManager.createTable(
+    	ViewDefinition viewDefinition = table.getView();
+    	
+    	if (viewDefinition != null) {
+    		_databaseManager.createView(
 				tableReference.getDatasetId(),
 				tableReference.getProjectId(),
-				tableSchema,tableReference.getTableId());
+				tableReference.getTableId(),
+				viewDefinition);
+    	}
+    	else {
+    		TableSchema tableSchema = table.getSchema();
+    		
+    		_databaseManager.createTable(
+    				tableReference.getDatasetId(),
+    				tableReference.getProjectId(),
+    				tableSchema, tableReference.getTableId());    		
+    	}
+
 		
 		return ResponseEntity.ok(table);
     }

@@ -21,6 +21,7 @@ import com.liferay.bigquery.emulator.model.TableDataInsertAllRequest;
 import com.liferay.bigquery.emulator.model.TableDataInsertAllRequestRowsInner;
 import com.liferay.bigquery.emulator.model.TableFieldSchema;
 import com.liferay.bigquery.emulator.model.TableSchema;
+import com.liferay.bigquery.emulator.model.ViewDefinition;
 
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 
@@ -39,13 +40,13 @@ public class DatabaseManager {
     }
 	
 	public void createTable(String datasetId, String projectId, TableSchema tableSchema, String tableId) {
-		StringBuilder stringBuilder = new StringBuilder();
+		StringBuilder sb = new StringBuilder();
 		
-		stringBuilder.append(String.format("CREATE TABLE %s.%s (", datasetId, tableId));
+		sb.append(String.format("CREATE OR REPLACE TABLE %s.%s (", datasetId, tableId));
 		
 		List<@Valid TableFieldSchema> fields = tableSchema.getFields();
 
-		stringBuilder.append(
+		sb.append(
 			String.join(
 				",",
 				fields
@@ -53,9 +54,23 @@ public class DatabaseManager {
 					.map(field -> field.getName() + " " + _fieldTypes.getOrDefault(field.getType(), field.getType()) )
 					.collect(Collectors.toList())));
 		
-		stringBuilder.append(");");
+		sb.append(");");
 		
-		_execute(stringBuilder.toString());
+		_execute(sb.toString());
+	}
+	
+	public void createView(String datasetId, String projectId, String tableId, ViewDefinition viewDefinition) {
+		StringBuilder sb = new StringBuilder();
+		
+		sb.append(String.format("CREATE OR REPLACE VIEW %s.%s ", datasetId, tableId));
+		
+		sb.append(" AS ");
+		
+		sb.append(viewDefinition.getQuery());
+		
+		sb.append(";");
+		
+		_execute(sb.toString());
 	}
 	
 	public SqlRowSet executeQuery(String sql) {
