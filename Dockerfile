@@ -1,38 +1,26 @@
-#FROM openjdk:17-jdk-alpine
-#ARG JAR_FILE=target/*.jar
-#COPY ${JAR_FILE} app.jar
+# Start with a Gradle-enabled base image that has JDK 17.
+FROM gradle:8.8-jdk17-jammy AS builder
 
-#EXPOSE 8080 5005
+# Set the working directory inside the container
+WORKDIR /app
 
-#ENV JAVA_OPTS="-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005"
+# Copy the Gradle wrapper files and source code
+COPY gradlew .
+COPY gradle gradle
+COPY build.gradle .
+COPY settings.gradle .
+COPY src src
 
-#ENTRYPOINT ["java", "${JAVA_OPTS}", "-jar","/app.jar"]
-#ENTRYPOINT java ${JAVA_OPTS} -jar /app.jar
-#ENTRYPOINT ["java", "-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=0.0.0.0:5005", "-jar", "app.jar"]
-FROM azul/zulu-openjdk-alpine:21.0.4-jre AS builder
+# Make the Gradle wrapper executable
+RUN chmod +x ./gradlew
 
-WORKDIR /builder
+# Execute the Gradle build
+RUN ./gradlew build --no-daemon
 
-#COPY ./build/libs/*application.jar app.jar
-ARG JAR_FILE=target/*.jar
-COPY ${JAR_FILE} app.jar
+# --- Final image stage (remains unchanged) ---
+FROM azul/zulu-openjdk-alpine:21.0.4-jre@sha256:172ed07c8fb58f8683b6fe26394e9698fbe78c11f6a62817c837e4692cb4c7d4
 
-RUN java -Djarmode=layertools -jar app.jar extract
-
-FROM azul/zulu-openjdk-alpine:21.0.4-jre
-
-ARG LABEL_BUILD_DATE
-ARG LABEL_VCS_REF
-
-CMD ["sh", "-c", "java ${JAVA_OPTS} ${JAVA_OPTS_EXT} -XshowSettings:vm -XX:+PrintCommandLineFlags org.springframework.boot.loader.launch.JarLauncher"]
-
+WORKDIR /app
 EXPOSE 8080
-
-USER root
-
-WORKDIR /root
-
-COPY --from=builder /builder/dependencies .
-COPY --from=builder /builder/spring-boot-loader .
-
-COPY --from=builder /builder/application .
+COPY --from=builder /app/build/libs/bigquery-emulator-0.0.1-SNAPSHOT.jar app.jar
+CMD ["java", "-jar", "app.jar"]
